@@ -8,18 +8,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #0056b3;
-            --secondary: #ffc107;
-            --accent: #dc3545;
-            --light: #f8f9fa;
-            --dark: #212529;
-            --gray: #6c757d;
-            --light-gray: #e9ecef;
-            --success: #28a745;
-            --venezuela-yellow: #FFCC00;
-            --venezuela-blue: #0038A8;
-            --venezuela-red: #CE1126;
-            --chile-blue: #0039A6;
+            --primary: #FF6F00; /* Orange */
+            --secondary: #FFD600; /* Yellow */
+            --accent: #FF3D00; /* Red */
+            --light: #FFF8E1;
+            --dark: #3E2723;
+            --gray: #757575;
+            --light-gray: #FFE0B2;
+            --success: #43A047;
+            --venezuela-yellow: #FFD600;
+            --venezuela-blue: #0033A0;
+            --venezuela-red: #EF3340;
+            --chile-blue: #0033A0;
             --chile-red: #D52B1E;
             --chile-white: #FFFFFF;
         }
@@ -212,17 +212,19 @@
         }
         
         .flag-venezuela::before {
-            content: "★";
-            color: white;
-            font-size: 8px;
+            content: "";
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            left: 6px;
+            top: 7px;
+            width: 20px;
+            height: 6px;
+            background: repeating-linear-gradient(90deg, #fff, #fff 2px, transparent 2px, transparent 4px);
+            opacity: 0.7;
+            border-radius: 2px;
         }
         
         .flag-chile {
-            background: linear-gradient(to bottom, var(--chile-red) 0%, var(--chile-red) 50%, var(--chile-white) 50%, var(--chile-white) 100%);
+            background: linear-gradient(to bottom, var(--chile-white) 0%, var(--chile-white) 50%, var(--chile-red) 50%, var(--chile-red) 100%);
             position: relative;
         }
         
@@ -231,10 +233,18 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 16px;
+            width: 12px;
             height: 10px;
             background: var(--chile-blue);
-            clip-path: polygon(0 0, 0 100%, 100% 50%);
+        }
+        
+        .flag-chile::after {
+            content: "✶";
+            color: #fff;
+            font-size: 10px;
+            position: absolute;
+            top: 0px;
+            left: 2px;
         }
         
         /* Hero Section */
@@ -457,25 +467,6 @@
             font-weight: 600;
         }
         
-        .add-to-cart {
-            background: var(--primary);
-            color: white;
-            border: none;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .add-to-cart:hover {
-            background: var(--venezuela-red);
-            transform: rotate(90deg);
-        }
-        
         /* About Section */
         .about {
             background: linear-gradient(to right, #f8f9fa, #e9ecef);
@@ -644,6 +635,32 @@
             color: rgba(255, 255, 255, 0.6);
         }
         
+        /* WhatsApp Floating Button */
+        .whatsapp-float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25D366;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            font-size: 2.5rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+            z-index: 1200;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s, transform 0.3s;
+            cursor: pointer;
+        }
+        .whatsapp-float:hover {
+            background: #128C7E;
+            transform: translateY(-5px) scale(1.08);
+            color: #fff;
+        }
+        
         /* Responsive */
         @media (max-width: 992px) {
             .header-top {
@@ -739,18 +756,6 @@
                         <span>Av. Libertador 1234, Santiago</span>
                     </div>
                 </div>
-                
-                <div class="header-actions">
-                    <div class="action-btn">
-                        <i class="fas fa-user action-icon"></i>
-                        <span>Cuenta</span>
-                    </div>
-                    <div class="action-btn" style="position: relative;">
-                        <i class="fas fa-shopping-cart action-icon"></i>
-                        <span>Carrito</span>
-                        <div class="cart-badge">3</div>
-                    </div>
-                </div>
             </div>
             
             <div class="header-bottom">
@@ -782,66 +787,79 @@
     <section class="section">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Nuestras Categorías</h2>
+                <h2 class="section-title">Nuestros Productos</h2>
                 <a href="#" class="view-all">Ver todas <i class="fas fa-arrow-right"></i></a>
             </div>
             
             <div class="categories-grid">
-                <div class="category-card">
-                    <div class="category-icon">
-                        <i class="fas fa-flag"></i>
-                    </div>
-                    <div class="category-name">Productos Venezolanos</div>
-                </div>
-                
-                <div class="category-card">
-                    <div class="category-icon">
-                        <i class="fas fa-apple-alt"></i>
-                    </div>
+                <a class="category-card" href="#cat-importados" id="cat-importados-btn">
+                    <div class="category-icon"><i class="fas fa-flag"></i></div>
+                    <div class="category-name">Importados</div>
+                </a>
+                <a class="category-card" href="#cat-frutasyverduras" id="cat-frutasyverduras-btn">
+                    <div class="category-icon"><i class="fas fa-apple-alt"></i></div>
                     <div class="category-name">Frutas y Verduras</div>
-                </div>
-                
-                <div class="category-card">
-                    <div class="category-icon">
-                        <i class="fas fa-cheese"></i>
-                    </div>
+                </a>
+                <a class="category-card" href="#cat-verduras" id="cat-verduras-btn">
+                    <div class="category-icon"><i class="fas fa-carrot"></i></div>
+                    <div class="category-name">Verduras</div>
+                </a>
+                <a class="category-card" href="#cat-viveres" id="cat-viveres-btn">
+                    <div class="category-icon"><i class="fas fa-box"></i></div>
+                    <div class="category-name">Víveres</div>
+                </a>
+                <a class="category-card" href="#cat-mascotas" id="cat-mascotas-btn">
+                    <div class="category-icon"><i class="fas fa-dog"></i></div>
+                    <div class="category-name">Mascotas</div>
+                </a>
+                <a class="category-card" href="#cat-carniceria" id="cat-carniceria-btn">
+                    <div class="category-icon"><i class="fas fa-drumstick-bite"></i></div>
+                    <div class="category-name">Carnicería</div>
+                </a>
+                <a class="category-card" href="#cat-charcuteria" id="cat-charcuteria-btn">
+                    <div class="category-icon"><i class="fas fa-bacon"></i></div>
+                    <div class="category-name">Charcutería</div>
+                </a>
+                <a class="category-card" href="#cat-cosmeticos" id="cat-cosmeticos-btn">
+                    <div class="category-icon"><i class="fas fa-spa"></i></div>
+                    <div class="category-name">Cosméticos</div>
+                </a>
+                <a class="category-card" href="#cat-hogar" id="cat-hogar-btn">
+                    <div class="category-icon"><i class="fas fa-home"></i></div>
+                    <div class="category-name">Hogar</div>
+                </a>
+                <a class="category-card" href="#cat-licores" id="cat-licores-btn">
+                    <div class="category-icon"><i class="fas fa-wine-bottle"></i></div>
+                    <div class="category-name">Licores</div>
+                </a>
+                <a class="category-card" href="#cat-limpieza" id="cat-limpieza-btn">
+                    <div class="category-icon"><i class="fas fa-pump-soap"></i></div>
+                    <div class="category-name">Limpieza</div>
+                </a>
+                <a class="category-card" href="#cat-pescaderia" id="cat-pescaderia-btn">
+                    <div class="category-icon"><i class="fas fa-fish"></i></div>
+                    <div class="category-name">Pescadería</div>
+                </a>
+                <a class="category-card" href="#cat-lacteos" id="cat-lacteos-btn">
+                    <div class="category-icon"><i class="fas fa-cheese"></i></div>
                     <div class="category-name">Lácteos y Quesos</div>
-                </div>
-                
-                <div class="category-card">
-                    <div class="category-icon">
-                        <i class="fas fa-drumstick-bite"></i>
-                    </div>
-                    <div class="category-name">Carnes y Pollo</div>
-                </div>
-                
-                <div class="category-card">
-                    <div class="category-icon">
-                        <i class="fas fa-bread-slice"></i>
-                    </div>
+                </a>
+                <a class="category-card" href="#cat-panaderia" id="cat-panaderia-btn">
+                    <div class="category-icon"><i class="fas fa-bread-slice"></i></div>
                     <div class="category-name">Panadería</div>
-                </div>
-                
-                <div class="category-card">
-                    <div class="category-icon">
-                        <i class="fas fa-wine-bottle"></i>
-                    </div>
+                </a>
+                <a class="category-card" href="#cat-bebidas" id="cat-bebidas-btn">
+                    <div class="category-icon"><i class="fas fa-wine-glass-alt"></i></div>
                     <div class="category-name">Bebidas</div>
-                </div>
-                
-                <div class="category-card">
-                    <div class="category-icon">
-                        <i class="fas fa-ice-cream"></i>
-                    </div>
+                </a>
+                <a class="category-card" href="#cat-congelados" id="cat-congelados-btn">
+                    <div class="category-icon"><i class="fas fa-ice-cream"></i></div>
                     <div class="category-name">Congelados</div>
-                </div>
-                
-                <div class="category-card">
-                    <div class="category-icon">
-                        <i class="fas fa-soap"></i>
-                    </div>
+                </a>
+                <a class="category-card" href="#cat-higiene" id="cat-higiene-btn">
+                    <div class="category-icon"><i class="fas fa-soap"></i></div>
                     <div class="category-name">Higiene</div>
-                </div>
+                </a>
             </div>
         </div>
     </section>
@@ -868,9 +886,7 @@
                         <div class="product-origin">Origen: Venezuela</div>
                         <div class="product-footer">
                             <div class="product-price">$2.490</div>
-                            <button class="add-to-cart">
-                                <i class="fas fa-shopping-cart"></i>
-                            </button>
+                            <!-- Removed cart icon/button -->
                         </div>
                     </div>
                 </div>
@@ -888,9 +904,7 @@
                         <div class="product-origin">Origen: Venezuela</div>
                         <div class="product-footer">
                             <div class="product-price">$8.990/kg</div>
-                            <button class="add-to-cart">
-                                <i class="fas fa-shopping-cart"></i>
-                            </button>
+                            <!-- Removed cart icon/button -->
                         </div>
                     </div>
                 </div>
@@ -907,9 +921,7 @@
                         <div class="product-origin">Origen: Venezuela</div>
                         <div class="product-footer">
                             <div class="product-price">$3.990/kg</div>
-                            <button class="add-to-cart">
-                                <i class="fas fa-shopping-cart"></i>
-                            </button>
+                            <!-- Removed cart icon/button -->
                         </div>
                     </div>
                 </div>
@@ -927,9 +939,7 @@
                         <div class="product-origin">Origen: Venezuela</div>
                         <div class="product-footer">
                             <div class="product-price">$5.990</div>
-                            <button class="add-to-cart">
-                                <i class="fas fa-shopping-cart"></i>
-                            </button>
+                            <!-- Removed cart icon/button -->
                         </div>
                     </div>
                 </div>
@@ -937,6 +947,344 @@
         </div>
     </section>
 
+    <!-- Products Section by Category -->
+    <section class="section" id="cat-importados">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Importados</h2>
+            </div>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-badge">Nuevo</div>
+                    <div class="product-image"><img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80" alt="Galletas Oreo"></div>
+                    <div class="product-info">
+                        <span class="product-category">Importados</span>
+                        <h3 class="product-name">Galletas Oreo</h3>
+                        <p class="product-description">Galletas rellenas importadas de USA.</p>
+                        <div class="product-origin">Origen: USA</div>
+                        <div class="product-footer"><div class="product-price">$2.000</div><!-- Removed cart icon/button --></div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-badge">Oferta</div>
+                    <div class="product-image"><img src="https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=400&q=80" alt="Nutella"></div>
+                    <div class="product-info">
+                        <span class="product-category">Importados</span>
+                        <h3 class="product-name">Nutella</h3>
+                        <p class="product-description">Crema de avellanas italiana.</p>
+                        <div class="product-origin">Origen: Italia</div>
+                        <div class="product-footer"><div class="product-price">$4.500</div><!-- Removed cart icon/button --></div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-badge">Destacado</div>
+                    <div class="product-image"><img src="https://images.unsplash.com/photo-1464306076886-debca5e8a6b0?auto=format&fit=crop&w=400&q=80" alt="Chocolates Ferrero"></div>
+                    <div class="product-info">
+                        <span class="product-category">Importados</span>
+                        <h3 class="product-name">Chocolates Ferrero</h3>
+                        <p class="product-description">Bombones de chocolate y avellana.</p>
+                        <div class="product-origin">Origen: Italia</div>
+                        <div class="product-footer"><div class="product-price">$6.000</div><!-- Removed cart icon/button --></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section" id="cat-frutasyverduras">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Frutas y Verduras</h2>
+            </div>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-badge">Fresco</div>
+                    <div class="product-image"><img src="https://images.unsplash.com/photo-1502741338009-cac2772e18bc?auto=format&fit=crop&w=400&q=80" alt="Manzanas"></div>
+                    <div class="product-info">
+                        <span class="product-category">Frutas</span>
+                        <h3 class="product-name">Manzanas Rojas</h3>
+                        <p class="product-description">Manzanas frescas seleccionadas.</p>
+                        <div class="product-origin">Origen: Chile</div>
+                        <div class="product-footer"><div class="product-price">$1.200/kg</div><!-- Removed cart icon/button --></div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-badge">Fresco</div>
+                    <div class="product-image"><img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80" alt="Plátanos"></div>
+                    <div class="product-info">
+                        <span class="product-category">Frutas</span>
+                        <h3 class="product-name">Plátanos</h3>
+                        <p class="product-description">Plátanos maduros importados.</p>
+                        <div class="product-origin">Origen: Ecuador</div>
+                        <div class="product-footer"><div class="product-price">$1.000/kg</div><!-- Removed cart icon/button --></div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-badge">Fresco</div>
+                    <div class="product-image"><img src="https://images.unsplash.com/photo-1506089676908-3592f7389d4d?auto=format&fit=crop&w=400&q=80" alt="Lechuga"></div>
+                    <div class="product-info">
+                        <span class="product-category">Verduras</span>
+                        <h3 class="product-name">Lechuga</h3>
+                        <p class="product-description">Lechuga fresca y crujiente.</p>
+                        <div class="product-origin">Origen: Chile</div>
+                        <div class="product-footer"><div class="product-price">$800/unidad</div><!-- Removed cart icon/button --></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section" id="cat-verduras">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Verduras</h2>
+            </div>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-badge">Fresco</div>
+                    <div class="product-image"><img src="https://images.unsplash.com/photo-1502741338009-cac2772e18bc?auto=format&fit=crop&w=400&q=80" alt="Zanahorias"></div>
+                    <div class="product-info">
+                        <span class="product-category">Verduras</span>
+                        <h3 class="product-name">Zanahorias</h3>
+                        <p class="product-description">Zanahorias frescas y crujientes.</p>
+                        <div class="product-origin">Origen: Chile</div>
+                        <div class="product-footer"><div class="product-price">$900/kg</div><!-- Removed cart icon/button --></div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-badge">Fresco</div>
+                    <div class="product-image"><img src="https://images.unsplash.com/photo-1465101178521-c1a9136a3fd8?auto=format&fit=crop&w=400&q=80" alt="Papas"></div>
+                    <div class="product-info">
+                        <span class="product-category">Verduras</span>
+                        <h3 class="product-name">Papas</h3>
+                        <p class="product-description">Papas seleccionadas para todo uso.</p>
+                        <div class="product-origin">Origen: Chile</div>
+                        <div class="product-footer"><div class="product-price">$1.100/kg</div><!-- Removed cart icon/button --></div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-badge">Fresco</div>
+                    <div class="product-image"><img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80" alt="Cebollas"></div>
+                    <div class="product-info">
+                        <span class="product-category">Verduras</span>
+                        <h3 class="product-name">Cebollas</h3>
+                        <p class="product-description">Cebollas blancas y moradas frescas.</p>
+                        <div class="product-origin">Origen: Chile</div>
+                        <div class="product-footer"><div class="product-price">$1.200/kg</div><!-- Removed cart icon/button --></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section" id="cat-viveres">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Víveres</h2>
+            </div>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-badge">Básico</div>
+                    <div class="product-image"><img src="https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=400&q=80" alt="Arroz"></div>
+                    <div class="product-info">
+                        <span class="product-category">Víveres</span>
+                        <h3 class="product-name">Arroz Blanco</h3>
+                        <p class="product-description">Arroz grano largo, ideal para acompañar tus comidas.</p>
+                        <div class="product-origin">Origen: Chile</div>
+                        <div class="product-footer"><div class="product-price">$1.000/kg</div><!-- Removed cart icon/button --></div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-badge">Básico</div>
+                    <div class="product-image"><img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80" alt="Lentejas"></div>
+                    <div class="product-info">
+                        <span class="product-category">Víveres</span>
+                        <h3 class="product-name">Lentejas</h3>
+                        <p class="product-description">Lentejas seleccionadas, fuente de proteína vegetal.</p>
+                        <div class="product-origin">Origen: Chile</div>
+                        <div class="product-footer"><div class="product-price">$1.200/kg</div><!-- Removed cart icon/button --></div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-badge">Básico</div>
+                    <div class="product-image"><img src="https://images.unsplash.com/photo-1464306076886-debca5e8a6b0?auto=format&fit=crop&w=400&q=80" alt="Caraotas Negras"></div>
+                    <div class="product-info">
+                        <span class="product-category">Víveres</span>
+                        <h3 class="product-name">Caraotas Negras</h3>
+                        <p class="product-description">Caraotas negras venezolanas, perfectas para pabellón.</p>
+                        <div class="product-origin">Origen: Venezuela</div>
+                        <div class="product-footer"><div class="product-price">$1.800/kg</div><!-- Removed cart icon/button --></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section" id="cat-mascotas">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Mascotas</h2>
+            </div>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-badge">Popular</div>
+                    <div class="product-image"><img src="https://images.unsplash.com/photo-1518717758536-85ae29035b6d?auto=format&fit=crop&w=400&q=80" alt="Alimento para Perro"></div>
+                    <div class="product-info">
+                        <span class="product-category">Mascotas</span>
+                        <h3 class="product-name">Alimento para Perro</h3>
+                        <p class="product-description">Croquetas premium para perros adultos.</p>
+                        <div class="product-origin">Origen: Chile</div>
+                        <div class="product-footer"><div class="product-price">$8.500/bolsa</div><!-- Removed cart icon/button --></div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-badge">Popular</div>
+                    <div class="product-image"><img src="https://images.unsplash.com/photo-1518715308788-3005759c61d3?auto=format&fit=crop&w=400&q=80" alt="Alimento para Gato"></div>
+                    <div class="product-info">
+                        <span class="product-category">Mascotas</span>
+                        <h3 class="product-name">Alimento para Gato</h3>
+                        <p class="product-description">Alimento balanceado para gatos de todas las edades.</p>
+                        <div class="product-origin">Origen: Chile</div>
+                        <div class="product-footer"><div class="product-price">$7.500/bolsa</div><!-- Removed cart icon/button --></div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-badge">Nuevo</div>
+                    <div class="product-image"><img src="https://images.unsplash.com/photo-1518715308788-3005759c61d3?auto=format&fit=crop&w=400&q=80" alt="Arena para Gato"></div>
+                    <div class="product-info">
+                        <span class="product-category">Mascotas</span>
+                        <h3 class="product-name">Arena para Gato</h3>
+                        <p class="product-description">Arena absorbente y sin aroma para gatos.</p>
+                        <div class="product-origin">Origen: Chile</div>
+                        <div class="product-footer"><div class="product-price">$4.000/bolsa</div><!-- Removed cart icon/button --></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section" id="cat-carniceria">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Carnicería</h2>
+            </div>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-badge">Fresco</div>
+                    <div class="product-image"><img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80" alt="Carne de Res"></div>
+                    <div class="product-info">
+                        <span class="product-category">Carnicería</span>
+                        <h3 class="product-name">Carne de Res</h3>
+                        <p class="product-description">Corte de res nacional, ideal para asados.</p>
+                        <div class="product-origin">Origen: Chile</div>
+                        <div class="product-footer"><div class="product-price">$7.900/kg</div><!-- Removed cart icon/button --></div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-badge">Oferta</div>
+                    <div class="product-image"><img src="https://images.unsplash.com/photo-1519864600265-abb23847ef2c?auto=format&fit=crop&w=400&q=80" alt="Pollo Entero"></div>
+                    <div class="product-info">
+                        <span class="product-category">Carnicería</span>
+                        <h3 class="product-name">Pollo Entero</h3>
+                        <p class="product-description">Pollo fresco, ideal para hornear o asar.</p>
+                        <div class="product-origin">Origen: Chile</div>
+                        <div class="product-footer"><div class="product-price">$3.500/kg</div><!-- Removed cart icon/button --></div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-badge">Nuevo</div>
+                    <div class="product-image"><img src="https://images.unsplash.com/photo-1464306076886-debca5e8a6b0?auto=format&fit=crop&w=400&q=80" alt="Chuletas de Cerdo"></div>
+                    <div class="product-info">
+                        <span class="product-category">Carnicería</span>
+                        <h3 class="product-name">Chuletas de Cerdo</h3>
+                        <p class="product-description">Chuletas frescas y jugosas para la parrilla.</p>
+                        <div class="product-origin">Origen: Chile</div>
+                        <div class="product-footer"><div class="product-price">$4.800/kg</div><!-- Removed cart icon/button --></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section" id="cat-charcuteria">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Charcutería</h2>
+            </div>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-badge">Importado</div>
+                    <div class="product-image"><img src="https://images.unsplash.com/photo-1518715308788-3005759c61d3?auto=format&fit=crop&w=400&q=80" alt="Jamón Cocido"></div>
+                    <div class="product-info">
+                        <span class="product-category">Charcutería</span>
+                        <h3 class="product-name">Jamón Cocido</h3>
+                        <p class="product-description">Jamón cocido de alta calidad, ideal para sándwiches.</p>
+                        <div class="product-origin">Origen: España</div>
+                        <div class="product-footer"><div class="product-price">$5.200/kg</div><!-- Removed cart icon/button --></div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-badge">Oferta</div>
+                    <div class="product-image"><img src="https://images.unsplash.com/photo-1518717758536-85ae29035b6d?auto=format&fit=crop&w=400&q=80" alt="Salchichón"></div>
+                    <div class="product-info">
+                        <span class="product-category">Charcutería</span>
+                        <h3 class="product-name">Salchichón</h3>
+                        <p class="product-description">Salchichón español, sabor intenso y tradicional.</p>
+                        <div class="product-origin">Origen: España</div>
+                        <div class="product-footer"><div class="product-price">$4.900/kg</div><!-- Removed cart icon/button --></div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-badge">Nuevo</div>
+                    <div class="product-image"><img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80" alt="Queso Amarillo"></div>
+                    <div class="product-info">
+                        <span class="product-category">Charcutería</span>
+                        <h3 class="product-name">Queso Amarillo</h3>
+                        <p class="product-description">Queso amarillo tipo gouda, ideal para tablas y sándwiches.</p>
+                        <div class="product-origin">Origen: Holanda</div>
+                        <div class="product-footer"><div class="product-price">$6.200/kg</div><!-- Removed cart icon/button --></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section" id="cat-cosmeticos">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Cosméticos</h2>
+            </div>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-badge">Nuevo</div>
+                    <div class="product-image"><img src="https://images.unsplash.com/photo-1518715308788-3005759c61d3?auto=format&fit=crop&w=400&q=80" alt="Crema Facial"></div>
+                    <div class="product-info">
+                        <span class="product-category">Cosméticos</span>
+                        <h3 class="product-name">Crema Facial</h3>
+                        <p class="product-description">Crema hidratante para todo tipo de piel.</p>
+                        <div class="product-origin">Origen: Francia</div>
+                        <div class="product-footer"><div class="product-price">$7.900</div><!-- Removed cart icon/button --></div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-badge">Popular</div>
+                    <div class="product-image"><img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80" alt="Shampoo"></div>
+                    <div class="product-info">
+                        <span class="product-category">Cosméticos</span>
+                        <h3 class="product-name">Shampoo Nutritivo</h3>
+                        <p class="product-description">Shampoo con aceites naturales para cabello brillante.</p>
+                        <div class="product-origin">Origen: Chile</div>
+                        <div class="product-footer"><div class="product-price">$3.500</div><!-- Removed cart icon/button --></div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-badge">Oferta</div>
+                    <div class="product-image"><img src="https://images.unsplash.com/photo-1506089676908-3592f7389d4d?auto=format&fit=crop&w=400&q=80" alt="Labial"></div>
+                    <div class="product-info">
+                        <span class="product-category">Cosméticos</span>
+                        <h3 class="product-name">Labial Mate</h3>
+                        <p class="product-description">Labial de larga duración, color intenso.</p>
+                        <div class="product-origin">Origen: USA</div>
+                        <div class="product-footer"><div class="product-price">$4.200</div><!-- Removed cart icon/button --></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     <!-- About Section -->
     <section class="about">
         <div class="container about-container">
@@ -945,8 +1293,8 @@
             </div>
             <div class="about-content">
                 <h2>Nuestra Historia</h2>
-                <p>Marazulia Supermarket nació en 2015 del sueño de Carlos Rodríguez, un inmigrante de Maracaibo, Venezuela, que quería traer los sabores de su tierra a Santiago de Chile. Lo que comenzó como un pequeño local en el centro de Santiago, hoy es un supermercado reconocido por la comunidad venezolana y chilena.</p>
-                <p>Nuestro nombre "Marazulia" es un homenaje a Maracaibo, la ciudad natal de nuestro fundador, y a la luz del Zulia, símbolo de esperanza y prosperidad.</p>
+                <p>Marazulia Supermarket nació en 2015 del sueño de Shanelis Parra, una inmigrante de Maracaibo, Venezuela, que quería traer los sabores de su tierra a Santiago de Chile. Lo que comenzó como un pequeño local en el centro de Santiago, hoy es un supermercado reconocido por la comunidad venezolana y chilena.</p>
+                <p>Nuestro nombre "Marazulia" es un homenaje a Maracaibo, la ciudad natal de nuestroa fundadora, y a la luz del Zulia, símbolo de esperanza y prosperidad.</p>
                 <p>Hoy, seguimos comprometidos con ofrecer productos de calidad tanto venezolanos como chilenos, manteniendo siempre la calidez y hospitalidad que nos caracteriza.</p>
                 <span class="venezuelan-tag">Orgullosamente Venezolanos</span>
             </div>
@@ -1015,60 +1363,12 @@
         </div>
     </footer>
 
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/56987654321?text=Hola%20Marazulia%2C%20quiero%20hacer%20una%20consulta" class="whatsapp-float" target="_blank" title="Chatea con nosotros por WhatsApp" aria-label="WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
     <script>
-        // Add to cart functionality
-        document.querySelectorAll('.add-to-cart').forEach(button => {
-            button.addEventListener('click', function() {
-                // Button animation
-                const originalContent = this.innerHTML;
-                this.innerHTML = '<i class="fas fa-check"></i>';
-                this.style.backgroundColor = '#28a745';
-                
-                // Get product info
-                const productCard = this.closest('.product-card');
-                const productName = productCard.querySelector('.product-name').textContent;
-                
-                // Show notification
-                const notification = document.createElement('div');
-                notification.textContent = `¡${productName} agregado al carrito!`;
-                notification.style.position = 'fixed';
-                notification.style.bottom = '20px';
-                notification.style.right = '20px';
-                notification.style.backgroundColor = '#28a745';
-                notification.style.color = 'white';
-                notification.style.padding = '12px 20px';
-                notification.style.borderRadius = '4px';
-                notification.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
-                notification.style.zIndex = '1000';
-                notification.style.transition = 'all 0.3s ease';
-                notification.style.transform = 'translateY(100px)';
-                notification.style.opacity = '0';
-                
-                document.body.appendChild(notification);
-                
-                // Animate in
-                setTimeout(() => {
-                    notification.style.transform = 'translateY(0)';
-                    notification.style.opacity = '1';
-                }, 10);
-                
-                // Animate out after delay
-                setTimeout(() => {
-                    notification.style.transform = 'translateY(100px)';
-                    notification.style.opacity = '0';
-                    setTimeout(() => {
-                        document.body.removeChild(notification);
-                    }, 300);
-                }, 3000);
-                
-                // Reset button after animation
-                setTimeout(() => {
-                    this.innerHTML = originalContent;
-                    this.style.backgroundColor = '';
-                }, 2000);
-            });
-        });
-        
         // Search form submission
         document.querySelector('.search-form').addEventListener('submit', function(e) {
             e.preventDefault();
